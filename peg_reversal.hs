@@ -29,7 +29,7 @@ flipPeg pos board = map (\peg@(Peg p color) -> if p == pos then Peg p W else peg
 -- Functions
 createBoard :: Position -> Board
 createBoard pos@(x, y)
-  | not (isValidPosition pos) = error "Program error: The position is not valid."
+  | not (isValidPosition pos) = error "The position is not valid."
   | otherwise = [Peg (a, b) (if (a, b) == pos then W else B) | a <- [-3..3], b <- [-3..3], isValidPosition (a, b)]
   where isValidPosition (x', y') = not(abs x' == 2 && abs y' == 2) && abs x' + abs y' <= 4
 
@@ -46,5 +46,5 @@ isGoal = all (\(Peg _ color) -> color == W)
 
 showPossibleNextStates :: Board -> [State]
 showPossibleNextStates board
-  | isGoal board = error "Program error: No Possible States Exist."
+  | isGoal board = error "No Possible States Exist."
   | otherwise = [S (M pos) (flipPeg pos board) | (Peg pos B) <- board, isValidMove (M pos) board]
